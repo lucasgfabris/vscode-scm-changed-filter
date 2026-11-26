@@ -1,0 +1,110 @@
+{
+  "name": "vscode-scm-changed-filter",
+  "displayName": "SCM Changed Filter",
+  "description": "Adds a Source Control button to show only repositories with changes, using the native tree.",
+  "version": "0.1.0",
+  "publisher": "lucasgfabris",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1F6FEB",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucasgfabris/vscode-scm-changed-filter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lucasgfabris/vscode-scm-changed-filter/issues"
+  },
+  "homepage": "https://github.com/lucasgfabris/vscode-scm-changed-filter#readme",
+  "keywords": [
+    "git",
+    "scm",
+    "source control",
+    "multi-root",
+    "filter",
+    "repositories"
+  ],
+  "engines": {
+    "vscode": "^1.146.0"
+  },
+  "categories": [
+    "SCM Providers",
+    "Other"
+  ],
+  "extensionDependencies": [
+    "vscode.git"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "scmChangedFilter.enable",
+        "title": "Show Only Changed Repositories",
+        "category": "SCM Changed Filter",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "scmChangedFilter.disable",
+        "title": "Show All Repositories",
+        "category": "SCM Changed Filter",
+        "icon": "$(filter-filled)"
+      },
+      {
+        "command": "scmChangedFilter.resync",
+        "title": "Resync",
+        "category": "SCM Changed Filter"
+      },
+      {
+        "command": "scmChangedFilter._probe",
+        "title": "Internal Probe",
+        "category": "SCM Changed Filter"
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "scmChangedFilter.enable",
+          "group": "navigation",
+          "when": "view == workbench.scm && !scmChangedFilter.enabled"
+        },
+        {
+          "command": "scmChangedFilter.disable",
+          "group": "navigation",
+          "when": "view == workbench.scm && scmChangedFilter.enabled"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "scmChangedFilter.enable",
+          "when": "false"
+        },
+        {
+          "command": "scmChangedFilter.disable",
+          "when": "false"
+        },
+        {
+          "command": "scmChangedFilter._probe",
+          "when": "false"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p .",
+    "test": "npm run compile && node --test out/test/logic.test.js",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.7",
+    "@types/vscode": "~1.146.0",
+    "@vscode/vsce": "^4.1.1",
+    "typescript": "^7.0.2"
+  }
+}
